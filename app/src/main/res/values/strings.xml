@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TODO</string>
+    <string name="MainTitile">To Do</string>
+    <string name="resAddBtn">Add</string>
+    <string name="InputTxt">Add Item</string>
+</resources>
