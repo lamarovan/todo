@@ -1,8 +1,14 @@
 package com.example.todo;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TodoDatabase extends SQLiteOpenHelper {
 
@@ -36,4 +42,36 @@ public class TodoDatabase extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS todotable");
         onCreate(sqLiteDatabase);
     }
+
+    public long addNote(Todo todo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues c = new ContentValues();
+        c.put(KEY_TASK,todo.getTask());
+        c.put(KEY_DATE,todo.getDate());
+        c.put(KEY_TIME,todo.getTime());
+
+        long ID = db.insert(DATABASE_TABLE,null,c);
+        Log.d("inserted,", "ID -> "+ID);
+        return ID;
+    }
+
+//    public List<Todo> getTask() {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        List<Todo> allTask = new ArrayList<>();
+//        String query = "SELECT * FROM "+DATABASE_TABLE;
+//        Cursor cursor = db.rawQuery(query, null);
+//        if(cursor != null){
+//            do {
+//                Todo todo = new Todo();
+//                todo.setID(cursor.getLong(0));
+//                todo.setTask(cursor.getString(1));
+//                todo.setDate(cursor.getString(2));
+//                todo.setTime(cursor.getString(3));
+//
+//                allTask.add(todo);
+//            } while (cursor.moveToNext());
+//            return allTask;
+//        }
+//    }
+
 }
